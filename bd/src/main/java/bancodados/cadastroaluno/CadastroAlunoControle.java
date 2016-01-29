@@ -1,6 +1,7 @@
 package bancodados.cadastroaluno;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value = "/CadastroAluno")
+@WebServlet(value = "/SGAluno")
 public class CadastroAlunoControle extends HttpServlet {
 
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -47,12 +48,13 @@ public class CadastroAlunoControle extends HttpServlet {
 			if (!matricula.equals("")) {
 				aluno.excluir();
 			}
-		} else if (op.equals("Buscar")) {
-			aluno.buscar();
 		}
 
 		req.setAttribute("aluno", aluno); // Passando um objeto para o JSP.
 
+		List<Aluno> alunos = aluno.listar();
+		req.setAttribute("alunos", alunos);
+		
 		// Chamar o JSP apenas para mostrar o resultado.
 		req.getRequestDispatcher("index.jsp").forward(req, resp);
 	}

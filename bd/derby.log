@@ -1,0 +1,19 @@
+----------------------------------------------------------------
+Fri Jan 29 21:04:25 BRST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0152-8fa1-64fb-00000d0d8ff8 
+on database directory /home/alunoinf/git/pw-bd/bd/banco-de-teste with class loader WebappClassLoader
+  context: /bd
+  delegate: false
+  repositories:
+----------> Parent Classloader:
+ClassRealm[plugin>org.apache.tomcat.maven:tomcat7-maven-plugin:2.2, parent: sun.misc.Launcher$AppClassLoader@713c817]
+ 
+Loaded from file:/home/alunoinf/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_51-b13
+user.dir=/home/alunoinf/git/pw-bd/bd
+os.name=Linux
+os.arch=amd64
+os.version=2.6.32-358.el6.x86_64
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

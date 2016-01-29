@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page import="bancodados.cadastroaluno.Aluno"%>
+<%@page import="java.util.List"%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -31,26 +33,24 @@
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="Matrícula"
-										name="matricula" type="text">
+										name="matricula" type="text"
+										value=<%=request.getParameter("matricula")%>>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Nome" name="nome"
-										type="text"">
+										type="text" value=<%=request.getParameter("nome")%>>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Fone" name="fone"
-										type="text">
+										type="text" value=<%=request.getParameter("fone")%>>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="CPF" name="cpf"
-										type="text">
+										type="text" value=<%=request.getParameter("cpf")%>>
 								</div>
 								<input type="submit" class="btn btn-sm btn-success" name="op"
-									value="Buscar"> <input type="submit"
-									class="btn btn-sm btn-success" name="op" value="Adicionar">
-								<input type="submit" class="btn btn-sm btn-success" name="op"
-									value="Alterar"> <input type="submit"
-									class="btn btn-sm btn-success" name="op" value="Excluir">
+									value="Adicionar"> <input type="submit"
+									class="btn btn-sm btn-success" name="op" value="Alterar">
 							</fieldset>
 						</form>
 						<br>
@@ -77,6 +77,39 @@
 							}
 						%>
 						<br>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Matrícula</th>
+									<th>Nome</th>
+									<th>Fone</th>
+									<th>CPF</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									List<Aluno> alunos = (List<Aluno>) request.getAttribute("alunos");
+									if (alunos != null && !alunos.isEmpty()) {
+										for (Aluno a : alunos) {
+								%>
+								<tr>
+									<th><%=a.getMatricula()%></th>
+									<td><%=a.getNome()%></td>
+									<td><%=a.getFone()%></td>
+									<td><%=a.getCpf()%></td>
+									<td><a
+										href="?matricula=<%=a.getMatricula()%>&nome=<%=a.getNome()%>&fone=<%=a.getFone()%>&cpf=<%=a.getCpf()%>">Alterar</a></td>
+									<td><a
+										href="?matricula=<%=a.getMatricula()%>&nome=<%=a.getNome()%>&fone=<%=a.getFone()%>&cpf=<%=a.getCpf()%>&op=Excluir">Excluir</a></td>
+								</tr>
+								<%
+									}
+									}
+								%>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

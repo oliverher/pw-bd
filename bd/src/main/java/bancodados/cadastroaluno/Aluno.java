@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aluno {
-	private String matricula, url = "jdbc:derby:banco-de-teste;create=true", status;
+	private String matricula, url = "jdbc:derby:banco-de-teste;create=true",
+			status;
 	private Connection conn;
 
 	public String getMatricula() {
@@ -46,7 +49,6 @@ public class Aluno {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
 
 	public String getStatus() {
 		return status;
@@ -123,27 +125,23 @@ public class Aluno {
 		}
 	}
 
-	public void buscar() {
+	public List<Aluno> listar() {
+		List<Aluno> alunos = new ArrayList<Aluno>();
 		try {
-			conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url);
 			String sql;
 			PreparedStatement prepareStatement;
-			if (matricula.equals("")) {
-				sql = "select * from aluno order by matricula";
-				prepareStatement = conn.prepareStatement(sql);
-			} else {
-				sql = "select * from aluno where matricula=? order by matricula";
-				prepareStatement = conn.prepareStatement(sql);
-				prepareStatement.setString(1, matricula);
-			}
-			// Obtém referência para uma sentença SQL.
-			
-			// Executa a instrução SQL.
+			sql = "select * from aluno order by matricula";
+			prepareStatement = conn.prepareStatement(sql);
 			ResultSet rs = prepareStatement.executeQuery();
-			setStatus("<br>");
 			while (rs.next()) {
-				status += rs.getString(1) + " - " + rs.getString(2) + " - "
-						+ rs.getString(3) + " - " + rs.getString(4) + "<br>";
+				Aluno a = new Aluno();
+				a.setMatricula(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setFone(rs.getString(3));
+				a.setCpf(rs.getString(4));
+
+				alunos.add(a);
 			}
 			rs.close();
 			prepareStatement.close();
@@ -151,6 +149,7 @@ public class Aluno {
 			// Para repassar a exceção para o container tratar.
 			throw new RuntimeException(e);
 		}
+		return alunos;
 
 	}
 }
